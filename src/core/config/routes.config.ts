@@ -1,4 +1,4 @@
-export const baseRoutes = {
+export const baseBrowseRoutes = {
   home: (): string => `/`,
-  notFound: (): string => `/404`,
+  notFound: (): string => `*`,
 }

@@ -1,1 +1,1 @@
-export {}
+export * as routesConfig from './routes.config'
