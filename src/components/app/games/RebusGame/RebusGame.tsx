@@ -16,6 +16,14 @@ interface RebusGameProps {
   rebus: Rebus
 }
 
+const getRandomWordToAnswer = (words: Word[], selected: Word[]): Word => {
+  const selectedAnswerWords = new Set(selected.filter((w) => w.isAnswerWord).map(({ index }) => index))
+  const freeAnswerWords = words.filter((word) => word.isAnswerWord && !selectedAnswerWords.has(word.index))
+
+  const randomIndex = random(0, freeAnswerWords.length - 1)
+  return freeAnswerWords[randomIndex]
+}
+
 const RebusGame: FC<RebusGameProps> = ({ rebus, onComplete, onFail }) => {
   const [play, setPlay] = useState<boolean>(true)
   const [completed, setCompleted] = useState<boolean>(false)
@@ -25,12 +33,7 @@ const RebusGame: FC<RebusGameProps> = ({ rebus, onComplete, onFail }) => {
   const selectedWords = (answerWords ?? []).filter((answerWord) => answerWord !== undefined) as Word[]
 
   const openRandomLetter = useCallback((): void => {
-    const selectedAnswerWords = new Set(selectedWords.filter((w) => w.isAnswerWord).map(({ index }) => index))
-    const freeAnswerWords = words.filter((word) => word.isAnswerWord && !selectedAnswerWords.has(word.index))
-
-    const randomIndex = random(0, freeAnswerWords.length - 1)
-    const newWord = freeAnswerWords[randomIndex]
-
+    const newWord = getRandomWordToAnswer(words, selectedWords)
     setAnswerWords((prev) => {
       const newWords = [...prev]
       newWords[newWord.index] = { ...newWord, locked: true }
@@ -93,8 +96,6 @@ const RebusGame: FC<RebusGameProps> = ({ rebus, onComplete, onFail }) => {
 
     onFail()
   }, [isCorrectAnswer, rebus.answer.length, onFail, selectedWords])
-
-  console.log(answerWords)
 
   return (
     <Game
