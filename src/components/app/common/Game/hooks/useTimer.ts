@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react'
+import { useCallback, useRef, useState } from 'react'
 
 interface UseTimer {
   handlePause: () => void
@@ -16,36 +16,36 @@ const useTimer = (initialState = 0): UseTimer => {
   const [isPaused, setIsPaused] = useState<boolean>(false)
   const countRef = useRef<NodeJS.Timer | null>(null)
 
-  const handleStart = (): void => {
+  const handleStart = useCallback((): void => {
     setIsActive(true)
     setIsPaused(true)
     countRef.current = setInterval(() => {
       setTimer((prevTimer) => prevTimer + 1)
     }, 1000)
-  }
+  }, [])
 
-  const handlePause = (): void => {
+  const handlePause = useCallback((): void => {
     if (countRef.current) {
       clearInterval(countRef.current)
     }
     setIsPaused(false)
-  }
+  }, [])
 
-  const handleResume = (): void => {
+  const handleResume = useCallback((): void => {
     setIsPaused(true)
     countRef.current = setInterval(() => {
       setTimer((prevTimer) => prevTimer + 1)
     }, 1000)
-  }
+  }, [])
 
-  const handleReset = (): void => {
+  const handleReset = useCallback((): void => {
     if (countRef.current) {
       clearInterval(countRef.current)
     }
     setIsActive(false)
     setIsPaused(false)
     setTimer(0)
-  }
+  }, [])
 
   return { handlePause, handleReset, handleResume, handleStart, isActive, isPaused, timer }
 }

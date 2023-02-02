@@ -1,4 +1,5 @@
 /* eslint-disable no-console */
+import random from 'lodash.random'
 import type { FC } from 'react'
 import { useCallback, useEffect, useMemo, useState } from 'react'
 
@@ -17,27 +18,45 @@ interface RebusGameProps {
 
 const RebusGame: FC<RebusGameProps> = ({ rebus, onComplete, onFail }) => {
   const [play, setPlay] = useState<boolean>(true)
+  const [completed, setCompleted] = useState<boolean>(false)
   const [answerWords, setAnswerWords] = useState<(Word | undefined)[]>(Array.from({ length: rebus.answer.length ?? 1 }))
   const words = useMemo(() => generateLettersPalette([...rebus.answer]), [rebus.answer])
 
-  const selectedLetters = (answerWords ?? []).filter((answerWord) => answerWord !== undefined) as Word[]
+  const selectedWords = (answerWords ?? []).filter((answerWord) => answerWord !== undefined) as Word[]
 
-  const hints: Hint[] = [
-    {
-      onClick: () => {
-        console.log('Открываем')
-      },
-      text: 'Открыть 1 букву',
-    },
-    {
-      onClick: () => {
-        console.log('Проходим')
-      },
-      text: 'Досрочно пройти задание',
-    },
-  ]
+  const openRandomLetter = useCallback((): void => {
+    const selectedAnswerWords = new Set(selectedWords.filter((w) => w.isAnswerWord).map(({ index }) => index))
+    const freeAnswerWords = words.filter((word) => word.isAnswerWord && !selectedAnswerWords.has(word.index))
 
-  const handleSuggestedWordClick = (word: Word): void => {
+    const randomIndex = random(0, freeAnswerWords.length - 1)
+    const newWord = freeAnswerWords[randomIndex]
+
+    setAnswerWords((prev) => {
+      const newWords = [...prev]
+      newWords[newWord.index] = { ...newWord, locked: true }
+      return newWords
+    })
+  }, [selectedWords, words])
+
+  const hints: Hint[] = useMemo(
+    () => [
+      {
+        onClick: openRandomLetter,
+        text: 'Открыть 1 букву',
+      },
+      {
+        onClick: () => setCompleted(true),
+        text: 'Досрочно пройти задание',
+      },
+    ],
+    [setCompleted, openRandomLetter]
+  )
+
+  const handleAnswerLetterClick = useCallback((_: Word, index: number): void => {
+    setAnswerWords((prev) => prev.map((prevWord, idx) => (index === idx ? undefined : prevWord)))
+  }, [])
+
+  const handleSuggestedWordClick = useCallback((word: Word): void => {
     let isAdded = false
 
     setAnswerWords((prev) =>
@@ -49,7 +68,7 @@ const RebusGame: FC<RebusGameProps> = ({ rebus, onComplete, onFail }) => {
         return [...acc, item]
       }, [])
     )
-  }
+  }, [])
 
   const isCorrectAnswer = useCallback((): boolean => {
     const currentAnswer = answerWords
@@ -61,27 +80,33 @@ const RebusGame: FC<RebusGameProps> = ({ rebus, onComplete, onFail }) => {
   }, [answerWords, rebus.answer])
 
   useEffect(() => {
-    if (selectedLetters.length === 0 || selectedLetters.length !== rebus.answer.length) {
+    if (selectedWords.length === 0 || selectedWords.length !== rebus.answer.length) {
       return
     }
 
     setPlay(false)
 
     if (isCorrectAnswer()) {
-      // onComplete(timer)
+      setCompleted(true)
       return
     }
 
     onFail()
-  }, [isCorrectAnswer, rebus.answer.length, onFail, selectedLetters])
+  }, [isCorrectAnswer, rebus.answer.length, onFail, selectedWords])
+
+  console.log(answerWords)
 
   return (
     <Game
       Question={<GameImage src={rebus.image} />}
       answerWords={answerWords}
+      completed={completed}
       hints={hints}
+      onAnswerWordClick={handleAnswerLetterClick}
+      onComplete={onComplete}
       onSuggestedWordClick={handleSuggestedWordClick}
       play={play}
+      selectedWords={selectedWords}
       title={`Задание №${rebus.id}`}
       words={words}
     />

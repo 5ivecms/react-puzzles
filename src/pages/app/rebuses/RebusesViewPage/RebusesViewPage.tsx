@@ -28,7 +28,6 @@ const RebusesViewPage: FC = () => {
 
   const onComplete = (time: number): void => {
     // eslint-disable-next-line no-console
-    console.log('Закончили', time)
     setGameStatus('completed')
     setExecutionTime(time)
     dispatch(setCompleted({ id: rebus.id, reward: 50, time, type: 'rebus' }))
@@ -36,7 +35,6 @@ const RebusesViewPage: FC = () => {
 
   const onFail = (): void => {
     // eslint-disable-next-line no-console
-    console.log('неверно')
     setGameStatus('fail')
   }
 

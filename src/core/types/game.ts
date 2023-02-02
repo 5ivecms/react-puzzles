@@ -17,6 +17,7 @@ export type GameCategory = {
 
 export type Word = {
   index: number
+  isAnswerWord: boolean
   locked: boolean
   symbol: string
 }

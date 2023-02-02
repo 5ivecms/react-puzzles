@@ -39,12 +39,18 @@ export const alphabetRu = [
   'я',
 ]
 export const generateLettersPalette = (words: string[] = [], length = 14): Word[] => {
-  const wordsArr = [...words]
+  let index = 0
+  const wordsArr: Word[] = []
+  words.forEach((symbol) => {
+    wordsArr.push({ index, isAnswerWord: true, locked: false, symbol })
+    index += 1
+  })
 
   while (wordsArr.length < length) {
     const randomLetterIndex = random(0, alphabetRu.length - 1)
-    wordsArr.push(alphabetRu[randomLetterIndex])
+    wordsArr.push({ index, isAnswerWord: false, locked: false, symbol: alphabetRu[randomLetterIndex] })
+    index += 1
   }
 
-  return shuffle(wordsArr).reduce((acc: Word[], symbol, index) => [...acc, { index, locked: false, symbol }], [])
+  return shuffle(wordsArr)
 }

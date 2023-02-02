@@ -1,6 +1,6 @@
 import { Box } from '@mui/material'
 import type { FC, ReactElement, ReactNode } from 'react'
-import { useEffect } from 'react'
+import { useEffect, useRef } from 'react'
 
 import type { Word } from '../../../../core/types/game'
 import AnswerPalette from '../AnswerPalette/AnswerPalette'
@@ -16,37 +16,53 @@ interface GameProps {
   /* [3, '-', 4] - [кол-во букв, разделитель, кол-во букв] */
   answerTemplate?: (number | string)[]
   answerWords?: (Word | undefined)[]
+  completed: boolean
   hints?: Hint[]
+  onAnswerWordClick?: (_: Word, index: number) => void
+  onComplete: (time: number) => void
   onSuggestedWordClick?: (word: Word) => void
   play: boolean
+  selectedWords: Word[]
   title: string
   words?: Word[]
 }
 
 const Game: FC<GameProps> = ({
+  Question,
+  answerTemplate,
+  answerWords,
+  completed,
+  hints,
+  onAnswerWordClick,
+  onComplete,
+  onSuggestedWordClick,
   play,
   title,
-  answerWords,
-  Question,
   words,
-  answerTemplate,
-  hints,
-  onSuggestedWordClick,
+  selectedWords,
 }) => {
   const { timer, handleStart, handlePause } = useTimer(0)
-
-  const handleAnswerLetterClick = (_: Word, index: number): void => {
-    setAnswerWords((prev) => prev.map((prevWord, idx) => (index === idx ? undefined : prevWord)))
-  }
+  const mounted = useRef<boolean>(false)
 
   useEffect(() => {
-    if (play) {
-      handleStart()
+    if (!play) {
+      handlePause()
+    }
+
+    if (mounted.current) {
       return
     }
 
-    handlePause()
-  }, [handleStart, handlePause, play])
+    handleStart()
+    mounted.current = true
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [play])
+
+  useEffect(() => {
+    if (completed) {
+      onComplete(timer)
+    }
+  }, [completed, timer, onComplete])
 
   return (
     <Box>
@@ -56,9 +72,11 @@ const Game: FC<GameProps> = ({
         <p>{formatTime(timer)}</p>
       </div>
       {Question}
-      {answerWords && <AnswerPalette onClick={handleAnswerLetterClick} template={answerTemplate} words={answerWords} />}
+      {answerWords && onAnswerWordClick !== undefined && (
+        <AnswerPalette onClick={onAnswerWordClick} template={answerTemplate} words={answerWords} />
+      )}
       {words && onSuggestedWordClick !== undefined && (
-        <LettersPalette onClick={onSuggestedWordClick} selected={selectedLetters} words={words} />
+        <LettersPalette onClick={onSuggestedWordClick} selected={selectedWords} words={words} />
       )}
     </Box>
   )
