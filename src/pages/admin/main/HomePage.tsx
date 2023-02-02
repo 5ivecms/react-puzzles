@@ -1,6 +1,6 @@
 import type { FC } from 'react'
 
-import { AdminLayout } from '../../layouts'
+import { AdminLayout } from '../../../layouts'
 
 const HomePage: FC = () => {
   return (

@@ -3,7 +3,7 @@ import { AppBar, Box, Button, Container, Toolbar, Typography } from '@mui/materi
 import type { FC } from 'react'
 import { Link } from 'react-router-dom'
 
-import { routesConfig } from '../../../core/config'
+import { adminRoutes } from '../../../../core/config/routes.config'
 import { headerMenu } from './header.data'
 import { linkMenu, linksContainer, logoIcon, logoText, toolbar } from './style.sx'
 
@@ -13,7 +13,7 @@ const Header: FC = () => {
       <Container maxWidth="xl">
         <Toolbar sx={toolbar} disableGutters>
           <AdbIcon sx={logoIcon} />
-          <Typography component={Link} sx={logoText} to={routesConfig.baseBrowseRoutes.home()} variant="h6" noWrap>
+          <Typography component={Link} sx={logoText} to={adminRoutes.main.home()} variant="h6" noWrap>
             Project
           </Typography>
           <Box sx={linksContainer}>
