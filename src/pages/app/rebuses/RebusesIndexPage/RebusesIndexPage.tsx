@@ -15,7 +15,7 @@ const RebusesIndexPage: FC = () => {
 
   return (
     <MainLayout>
-      <PageHeader left={<PageTitle title="Ребусы" />} />
+      <PageHeader left={<PageTitle title="Ребусы" />} showBackButton />
       <Grid spacing={2} container>
         {rebuses.map((rebus) => (
           <RebusCard key={rebus.id} gameProcess={rebusesState[rebus.id]} rebus={rebus} />

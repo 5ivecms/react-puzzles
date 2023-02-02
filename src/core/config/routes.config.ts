@@ -8,6 +8,10 @@ export const appRoutes = {
     index: (): string => `/game/rebus`,
     view: (id: number | string = ':rebusId'): string => `/game/rebus/${id}`,
   },
+  riddles: {
+    index: (): string => `/game/riddle`,
+    view: (id: number | string = ':riddleId'): string => `/game/riddle/${id}`,
+  },
 }
 
 export const adminRoutes = {
