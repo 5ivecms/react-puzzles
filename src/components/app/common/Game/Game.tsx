@@ -1,4 +1,5 @@
-import { Box, Button } from '@mui/material'
+import { Refresh } from '@mui/icons-material'
+import { Box, IconButton, Typography } from '@mui/material'
 import type { FC, ReactElement, ReactNode } from 'react'
 import { useEffect, useRef } from 'react'
 
@@ -8,6 +9,7 @@ import LettersPalette from '../LettersPalette/LettersPalette'
 import GameHeader from './components/GameHeader/GameHeader'
 import GameHints from './components/GameHints/GameHints'
 import { useTimer } from './hooks'
+import { controls, refreshIcon, timerSx } from './style.sx'
 import type { Hint } from './types'
 import { formatTime } from './utils'
 
@@ -69,15 +71,23 @@ const Game: FC<GameProps> = ({
   return (
     <Box>
       <GameHeader title={title} />
-      {onRefresh !== undefined && <Button onClick={onRefresh}>Сбросить</Button>}
-      <div>
+
+      <Box sx={controls}>
+        {onRefresh !== undefined && (
+          <IconButton onClick={onRefresh}>
+            <Refresh sx={refreshIcon} />
+          </IconButton>
+        )}
+        <Typography sx={timerSx}>{formatTime(timer)}</Typography>
         {hints && <GameHints hints={hints} />}
-        <p>{formatTime(timer)}</p>
-      </div>
+      </Box>
+
       {Question}
+
       {answerWords && onAnswerWordClick !== undefined && (
         <AnswerPalette onClick={onAnswerWordClick} template={answerTemplate} words={answerWords} />
       )}
+
       {words && onSuggestedWordClick !== undefined && (
         <LettersPalette onClick={onSuggestedWordClick} selected={selectedWords} words={words} />
       )}
