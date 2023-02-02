@@ -1,4 +1,4 @@
-import { Box } from '@mui/material'
+import { Box, Button } from '@mui/material'
 import type { FC, ReactElement, ReactNode } from 'react'
 import { useEffect, useRef } from 'react'
 
@@ -20,6 +20,7 @@ interface GameProps {
   hints?: Hint[]
   onAnswerWordClick?: (_: Word, index: number) => void
   onComplete: (time: number) => void
+  onRefresh?: () => void
   onSuggestedWordClick?: (word: Word) => void
   play: boolean
   selectedWords: Word[]
@@ -35,6 +36,7 @@ const Game: FC<GameProps> = ({
   hints,
   onAnswerWordClick,
   onComplete,
+  onRefresh,
   onSuggestedWordClick,
   play,
   title,
@@ -67,6 +69,7 @@ const Game: FC<GameProps> = ({
   return (
     <Box>
       <GameHeader title={title} />
+      {onRefresh !== undefined && <Button onClick={onRefresh}>Сбросить</Button>}
       <div>
         {hints && <GameHints hints={hints} />}
         <p>{formatTime(timer)}</p>

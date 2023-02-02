@@ -55,6 +55,10 @@ const RebusGame: FC<RebusGameProps> = ({ rebus, onComplete, onFail }) => {
     [setCompleted, openRandomLetter]
   )
 
+  const handleRefresh = (): void => {
+    setAnswerWords((prev) => prev.map((word) => (word?.locked ? word : undefined)))
+  }
+
   const handleAnswerLetterClick = useCallback((_: Word, index: number): void => {
     setAnswerWords((prev) => prev.map((prevWord, idx) => (index === idx ? undefined : prevWord)))
   }, [])
@@ -105,6 +109,7 @@ const RebusGame: FC<RebusGameProps> = ({ rebus, onComplete, onFail }) => {
       hints={hints}
       onAnswerWordClick={handleAnswerLetterClick}
       onComplete={onComplete}
+      onRefresh={handleRefresh}
       onSuggestedWordClick={handleSuggestedWordClick}
       play={play}
       selectedWords={selectedWords}
