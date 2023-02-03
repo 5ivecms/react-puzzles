@@ -2,6 +2,8 @@
 import type { FC } from 'react'
 import { useCallback, useEffect, useMemo, useState } from 'react'
 
+import { minusDiamonds } from '../../../../core/store/diamonds/slice'
+import { useAppDispatch } from '../../../../core/store/store'
 import type { Word } from '../../../../core/types/game'
 import type { Rebus } from '../../../../core/types/models/rebus'
 import { generateLettersPalette, getRandomWordForAnswer } from '../../../../core/utils/letters'
@@ -16,6 +18,7 @@ interface RebusGameProps {
 }
 
 const RebusGame: FC<RebusGameProps> = ({ rebus, onComplete, onFail }) => {
+  const dispatch = useAppDispatch()
   const [play, setPlay] = useState<boolean>(true)
   const [completed, setCompleted] = useState<boolean>(false)
   const [answerWords, setAnswerWords] = useState<(Word | undefined)[]>(Array.from({ length: rebus.answer.length ?? 1 }))
@@ -35,7 +38,10 @@ const RebusGame: FC<RebusGameProps> = ({ rebus, onComplete, onFail }) => {
   const hints: Hint[] = useMemo(
     () => [
       {
-        onClick: openRandomLetter,
+        onClick: () => {
+          openRandomLetter()
+          dispatch(minusDiamonds({ count: 10 }))
+        },
         text: 'Открыть 1 букву',
       },
       {
@@ -43,7 +49,7 @@ const RebusGame: FC<RebusGameProps> = ({ rebus, onComplete, onFail }) => {
         text: 'Досрочно пройти задание',
       },
     ],
-    [setCompleted, openRandomLetter]
+    [setCompleted, openRandomLetter, dispatch]
   )
 
   const handleRefresh = (): void => {
