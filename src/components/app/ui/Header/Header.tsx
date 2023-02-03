@@ -1,13 +1,17 @@
 import { Diamond, Extension } from '@mui/icons-material'
 import { AppBar, Box, Button, Container, Toolbar, Typography } from '@mui/material'
 import type { FC } from 'react'
+import { useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
 
 import { baseBrowseRoutes } from '../../../../core/config/routes.config'
+import { selectDiamondsCount } from '../../../../core/store/diamonds/selectors'
 import { headerMenu } from './header.data'
 import { linkMenu, linksContainer, logoIcon, logoText, toolbar } from './style.sx'
 
 const Header: FC = () => {
+  const diamonds = useSelector(selectDiamondsCount)
+
   return (
     <AppBar position="static">
       <Container maxWidth="xl">
@@ -26,7 +30,7 @@ const Header: FC = () => {
           <Box sx={{ display: 'flex', flexDirection: 'row' }}>
             <Box sx={{ alignItems: 'center', display: 'flex', flexDirection: 'row', mr: 2 }}>
               <Diamond sx={{ height: 26, mr: 0.5, width: 26 }} />
-              <Typography>0</Typography>
+              <Typography fontWeight="bold">{diamonds}</Typography>
             </Box>
           </Box>
         </Toolbar>

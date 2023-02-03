@@ -6,6 +6,7 @@ import { useDispatch } from 'react-redux'
 import { FLUSH, PAUSE, PERSIST, persistReducer, persistStore, PURGE, REGISTER, REHYDRATE } from 'redux-persist'
 import storage from 'redux-persist/lib/storage'
 
+import diamonds from './diamonds/slice'
 import games from './games/slice'
 
 const persistConfig = {
@@ -14,7 +15,7 @@ const persistConfig = {
   version: 1,
 }
 
-const rootReducer = combineReducers({ games })
+const rootReducer = combineReducers({ diamonds, games })
 
 const persistedReducer = persistReducer(persistConfig, rootReducer)
 
