@@ -5,6 +5,7 @@ import { adminRoutes, appRoutes, baseBrowseRoutes } from '../core/config/routes.
 import { HomePage, NotFoundPage } from '../pages/admin/main'
 import { PuzzlesCreatePage, PuzzlesIndexPage } from '../pages/admin/puzzles'
 import { CharadesIndexPage, CharadesViewPage } from '../pages/app/charades'
+import { PicturesIndexPage, PicturesViewPage } from '../pages/app/images'
 import { IndexPage } from '../pages/app/main'
 import { RebusesIndexPage, RebusesViewPage } from '../pages/app/rebuses'
 import { RiddlesIndexPage, RiddlesViewPage } from '../pages/app/riddles'
@@ -22,6 +23,9 @@ const AppRouter: FC = () => {
 
       <Route element={<CharadesIndexPage />} path={appRoutes.charades.index()} />
       <Route element={<CharadesViewPage />} path={appRoutes.charades.view()} />
+
+      <Route element={<PicturesIndexPage />} path={appRoutes.pictures.index()} />
+      <Route element={<PicturesViewPage />} path={appRoutes.pictures.view()} />
 
       <Route element={<HomePage />} path={adminRoutes.main.home()} />
 
