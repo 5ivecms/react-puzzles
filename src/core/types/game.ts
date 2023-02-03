@@ -1,3 +1,7 @@
+export interface GameBase {
+  id: number
+}
+
 export type GameType = 'rebus'
 
 export type GameProcessStatus = 'completed' | 'new' | 'process'
