@@ -11,13 +11,17 @@ const diamondsSlice = createSlice({
   initialState,
   name: 'diamonds',
   reducers: {
-    addDiamonds(state, action: PayloadAction<{ count: number }>) {
+    minusDiamonds(state, action: PayloadAction<{ count: number }>) {
+      // eslint-disable-next-line no-param-reassign
+      state.count -= action.payload.count
+    },
+    plusDiamonds(state, action: PayloadAction<{ count: number }>) {
       // eslint-disable-next-line no-param-reassign
       state.count += action.payload.count
     },
   },
 })
 
-export const { addDiamonds } = diamondsSlice.actions
+export const { plusDiamonds, minusDiamonds } = diamondsSlice.actions
 
 export default diamondsSlice.reducer
