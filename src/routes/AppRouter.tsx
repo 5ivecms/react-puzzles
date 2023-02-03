@@ -4,6 +4,7 @@ import { Route, Routes } from 'react-router-dom'
 import { adminRoutes, appRoutes, baseBrowseRoutes } from '../core/config/routes.config'
 import { HomePage, NotFoundPage } from '../pages/admin/main'
 import { PuzzlesCreatePage, PuzzlesIndexPage } from '../pages/admin/puzzles'
+import { CharadesIndexPage, CharadesViewPage } from '../pages/app/charades'
 import { IndexPage } from '../pages/app/main'
 import { RebusesIndexPage, RebusesViewPage } from '../pages/app/rebuses'
 import { RiddlesIndexPage, RiddlesViewPage } from '../pages/app/riddles'
@@ -18,6 +19,9 @@ const AppRouter: FC = () => {
 
       <Route element={<RiddlesIndexPage />} path={appRoutes.riddles.index()} />
       <Route element={<RiddlesViewPage />} path={appRoutes.riddles.view()} />
+
+      <Route element={<CharadesIndexPage />} path={appRoutes.charades.index()} />
+      <Route element={<CharadesViewPage />} path={appRoutes.charades.view()} />
 
       <Route element={<HomePage />} path={adminRoutes.main.home()} />
 

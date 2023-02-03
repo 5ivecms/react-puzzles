@@ -1,3 +1,5 @@
+/* eslint-disable no-console */
+/* eslint-disable react/no-array-index-key */
 import { Box } from '@mui/material'
 import type { FC } from 'react'
 
@@ -35,7 +37,7 @@ const AnswerPalette: FC<AnswerPaletteProps> = ({ words, template, onClick }) => 
       <Box sx={buttonsContainer}>
         {words.map((word, index) => {
           // eslint-disable-next-line react/no-array-index-key
-          return <WordElement key={`answer-word-${index}`} index={index} onClick={onClick} word={word} />
+          return <WordElement key={`answer-word-${String(word)}${index}`} index={index} onClick={onClick} word={word} />
         })}
       </Box>
     )
@@ -45,18 +47,20 @@ const AnswerPalette: FC<AnswerPaletteProps> = ({ words, template, onClick }) => 
 
   return (
     <Box sx={buttonsContainer}>
-      {template.map((t) => {
+      {template.map((t, index1) => {
         return typeof t === 'string' ? (
-          <Box sx={wordsSeparator}>{t}</Box>
+          <Box key={`answer-word-separator-${index1}`} sx={wordsSeparator}>
+            {t}
+          </Box>
         ) : (
-          <>
+          <Box key={`answer-word-${index1}`} sx={{ display: 'flex', flexDirection: 'row' }}>
             {words.slice(countWords, t + countWords).map((word) => {
               countWords += 1
               return (
                 <WordElement key={`answer-word-${countWords}`} index={countWords - 1} onClick={onClick} word={word} />
               )
             })}
-          </>
+          </Box>
         )
       })}
     </Box>

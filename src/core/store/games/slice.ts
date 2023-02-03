@@ -2,8 +2,11 @@
 import type { PayloadAction } from '@reduxjs/toolkit'
 import { createSlice } from '@reduxjs/toolkit'
 
+import charadesData from '../../../data/charades.json'
 import rebusesData from '../../../data/rebuses.json'
+import riddlesData from '../../../data/riddles.json'
 import type { GameProcess, GameType } from '../../types/game'
+import type { Charade, Riddle } from '../../types/models'
 import type { Rebus } from '../../types/models/rebus'
 import type { GamesSliceState } from './types'
 
@@ -13,13 +16,20 @@ const rebusesState = rebuses.reduce((acc: Record<number, GameProcess>, rebus) =>
   return { ...acc, [rebus.id]: item }
 }, {})
 
-const riddles = rebusesData as Rebus[]
+const riddles = riddlesData as Riddle[]
 const riddlesState = riddles.reduce((acc: Record<number, GameProcess>, riddle) => {
   const item: GameProcess = { id: riddle.id, reward: 0, status: 'new', time: 0 }
   return { ...acc, [riddle.id]: item }
 }, {})
 
+const charades = charadesData as Charade[]
+const charadesState = charades.reduce((acc: Record<number, GameProcess>, charade) => {
+  const item: GameProcess = { id: charade.id, reward: 0, status: 'new', time: 0 }
+  return { ...acc, [charade.id]: item }
+}, {})
+
 const initialState: GamesSliceState = {
+  charade: charadesState,
   rebus: rebusesState,
   riddle: riddlesState,
 }

@@ -1,5 +1,4 @@
-import { Diamond, Star } from '@mui/icons-material'
-import AdbIcon from '@mui/icons-material/Adb'
+import { Diamond, Extension, Star } from '@mui/icons-material'
 import { AppBar, Box, Button, Container, Toolbar, Typography } from '@mui/material'
 import type { FC } from 'react'
 import { Link } from 'react-router-dom'
@@ -13,7 +12,7 @@ const Header: FC = () => {
     <AppBar position="static">
       <Container maxWidth="xl">
         <Toolbar sx={toolbar} disableGutters>
-          <AdbIcon sx={logoIcon} />
+          <Extension sx={logoIcon} />
           <Typography component={Link} sx={logoText} to={baseBrowseRoutes.index()} variant="h6" noWrap>
             Загадки и пазлы
           </Typography>
