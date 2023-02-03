@@ -1,4 +1,4 @@
-import { Diamond, Extension, Star } from '@mui/icons-material'
+import { Diamond, Extension } from '@mui/icons-material'
 import { AppBar, Box, Button, Container, Toolbar, Typography } from '@mui/material'
 import type { FC } from 'react'
 import { Link } from 'react-router-dom'
@@ -26,10 +26,6 @@ const Header: FC = () => {
           <Box sx={{ display: 'flex', flexDirection: 'row' }}>
             <Box sx={{ alignItems: 'center', display: 'flex', flexDirection: 'row', mr: 2 }}>
               <Diamond sx={{ height: 26, mr: 0.5, width: 26 }} />
-              <Typography>0</Typography>
-            </Box>
-            <Box sx={{ alignItems: 'center', display: 'flex', flexDirection: 'row' }}>
-              <Star sx={{ height: 26, mr: 0.5, width: 26 }} />
               <Typography>0</Typography>
             </Box>
           </Box>

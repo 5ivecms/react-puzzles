@@ -20,6 +20,10 @@ export const appRoutes = {
     index: (): string => `/game/riddle`,
     view: (id: number | string = ':riddleId'): string => `/game/riddle/${id}`,
   },
+  telepaths: {
+    index: (): string => `/game/telepath`,
+    view: (id: number | string = ':telepathId'): string => `/game/telepath/${id}`,
+  },
 }
 
 export const adminRoutes = {
