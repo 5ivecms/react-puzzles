@@ -2,9 +2,11 @@ export interface GameBase {
   id: number
 }
 
-export type GameType = 'rebus'
+export type GameType = 'rebus' | 'riddle'
 
 export type GameProcessStatus = 'completed' | 'new' | 'process'
+
+export type GameStatus = 'completed' | 'fail' | 'process'
 
 export interface GameProcess {
   id: number

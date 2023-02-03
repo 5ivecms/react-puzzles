@@ -1,25 +1,25 @@
-/* eslint-disable no-console */
 import type { FC } from 'react'
 import { useCallback, useEffect, useMemo, useState } from 'react'
 
 import type { Word } from '../../../../core/types/game'
-import type { Rebus } from '../../../../core/types/models/rebus'
+import type { Riddle } from '../../../../core/types/models'
 import { generateLettersPalette, getRandomWordForAnswer } from '../../../../core/utils/letters'
-import { GameImage } from '../../common/Game'
 import Game from '../../common/Game/Game'
 import type { Hint } from '../../common/Game/types'
 
-interface RebusGameProps {
+interface RiddleGameProps {
   onComplete: (time: number) => void
   onFail: () => void
-  rebus: Rebus
+  riddle: Riddle
 }
 
-const RebusGame: FC<RebusGameProps> = ({ rebus, onComplete, onFail }) => {
+const RiddleGame: FC<RiddleGameProps> = ({ onComplete, onFail, riddle }) => {
   const [play, setPlay] = useState<boolean>(true)
   const [completed, setCompleted] = useState<boolean>(false)
-  const [answerWords, setAnswerWords] = useState<(Word | undefined)[]>(Array.from({ length: rebus.answer.length ?? 1 }))
-  const words = useMemo(() => generateLettersPalette([...rebus.answer]), [rebus.answer])
+  const [answerWords, setAnswerWords] = useState<(Word | undefined)[]>(
+    Array.from({ length: riddle.answer.length ?? 1 })
+  )
+  const words = useMemo(() => generateLettersPalette([...riddle.answer]), [riddle.answer])
 
   const selectedWords = (answerWords ?? []).filter((answerWord) => answerWord !== undefined) as Word[]
 
@@ -74,11 +74,11 @@ const RebusGame: FC<RebusGameProps> = ({ rebus, onComplete, onFail }) => {
       .map(({ symbol }) => symbol)
       .join('')
 
-    return currentAnswer === rebus.answer
-  }, [answerWords, rebus.answer])
+    return currentAnswer === riddle.answer
+  }, [answerWords, riddle.answer])
 
   useEffect(() => {
-    if (selectedWords.length === 0 || selectedWords.length !== rebus.answer.length) {
+    if (selectedWords.length === 0 || selectedWords.length !== riddle.answer.length) {
       return
     }
 
@@ -90,11 +90,19 @@ const RebusGame: FC<RebusGameProps> = ({ rebus, onComplete, onFail }) => {
     }
 
     onFail()
-  }, [isCorrectAnswer, rebus.answer.length, onFail, selectedWords])
+  }, [isCorrectAnswer, riddle.answer.length, onFail, selectedWords])
 
   return (
     <Game
-      Question={<GameImage src={rebus.image} />}
+      Question={
+        <div>
+          {riddle.text.split('\r\n').map((text) => (
+            <p key={text} style={{ margin: 0 }}>
+              {text}
+            </p>
+          ))}
+        </div>
+      }
       answerWords={answerWords}
       completed={completed}
       hints={hints}
@@ -104,10 +112,10 @@ const RebusGame: FC<RebusGameProps> = ({ rebus, onComplete, onFail }) => {
       onSuggestedWordClick={handleSuggestedWordClick}
       play={play}
       selectedWords={selectedWords}
-      title={`Задание №${rebus.id}`}
+      title={`Задание №${riddle.id}`}
       words={words}
     />
   )
 }
 
-export default RebusGame
+export default RiddleGame

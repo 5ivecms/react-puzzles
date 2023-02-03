@@ -54,3 +54,11 @@ export const generateLettersPalette = (words: string[] = [], length = 14): Word[
 
   return shuffle(wordsArr)
 }
+
+export const getRandomWordForAnswer = (words: Word[], selected: Word[]): Word => {
+  const selectedAnswerWords = new Set(selected.filter((w) => w.isAnswerWord).map(({ index }) => index))
+  const freeAnswerWords = words.filter((word) => word.isAnswerWord && !selectedAnswerWords.has(word.index))
+
+  const randomIndex = random(0, freeAnswerWords.length - 1)
+  return freeAnswerWords[randomIndex]
+}

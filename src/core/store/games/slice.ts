@@ -13,8 +13,15 @@ const rebusesState = rebuses.reduce((acc: Record<number, GameProcess>, rebus) =>
   return { ...acc, [rebus.id]: item }
 }, {})
 
+const riddles = rebusesData as Rebus[]
+const riddlesState = riddles.reduce((acc: Record<number, GameProcess>, riddle) => {
+  const item: GameProcess = { id: riddle.id, reward: 0, status: 'new', time: 0 }
+  return { ...acc, [riddle.id]: item }
+}, {})
+
 const initialState: GamesSliceState = {
   rebus: rebusesState,
+  riddle: riddlesState,
 }
 
 const gamesSlice = createSlice({
