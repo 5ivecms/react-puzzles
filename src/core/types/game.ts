@@ -2,7 +2,7 @@ export interface GameBase {
   id: number
 }
 
-export type GameType = 'charade' | 'rebus' | 'riddle'
+export type GameType = 'charade' | 'picture' | 'rebus' | 'riddle' | 'telepath'
 
 export type GameProcessStatus = 'completed' | 'new' | 'process'
 

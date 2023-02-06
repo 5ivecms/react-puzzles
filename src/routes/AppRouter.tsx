@@ -6,7 +6,7 @@ import { HomePage, NotFoundPage } from '../pages/admin/main'
 import { PuzzlesCreatePage, PuzzlesIndexPage } from '../pages/admin/puzzles'
 import { CharadesIndexPage, CharadesViewPage } from '../pages/app/charades'
 import { PicturesIndexPage, PicturesViewPage } from '../pages/app/images'
-import { IndexPage } from '../pages/app/main'
+import { DiamondsPage, IndexPage, PromoPage, TitlesPage } from '../pages/app/main'
 import { RebusesIndexPage, RebusesViewPage } from '../pages/app/rebuses'
 import { RiddlesIndexPage, RiddlesViewPage } from '../pages/app/riddles'
 import { TelepathsIndexPage, TelepathsViewPage } from '../pages/app/telepaths'
@@ -15,6 +15,9 @@ const AppRouter: FC = () => {
   return (
     <Routes>
       <Route element={<IndexPage />} path={baseBrowseRoutes.index()} />
+      <Route element={<TitlesPage />} path={baseBrowseRoutes.titles()} />
+      <Route element={<DiamondsPage />} path={baseBrowseRoutes.diamonds()} />
+      <Route element={<PromoPage />} path={baseBrowseRoutes.promo()} />
 
       <Route element={<RebusesIndexPage />} path={appRoutes.rebuses.index()} />
       <Route element={<RebusesViewPage />} path={appRoutes.rebuses.view()} />

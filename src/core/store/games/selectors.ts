@@ -6,3 +6,7 @@ export const selectRebuses = (state: RootState): Record<number, GameProcess> => 
 export const selectRiddles = (state: RootState): Record<number, GameProcess> => state.games['riddle']
 
 export const selectCharades = (state: RootState): Record<number, GameProcess> => state.games['charade']
+
+export const selectPictures = (state: RootState): Record<number, GameProcess> => state.games['picture']
+
+export const selectTelepaths = (state: RootState): Record<number, GameProcess> => state.games['telepath']

@@ -11,7 +11,7 @@ const MainLayout: FC<MainLayoutProps> = ({ children }) => {
   return (
     <Box>
       <Header />
-      <Container maxWidth="xl">{children}</Container>
+      <Container maxWidth="md">{children}</Container>
     </Box>
   )
 }

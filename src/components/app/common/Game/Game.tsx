@@ -25,7 +25,7 @@ interface GameProps {
   onRefresh?: () => void
   onSuggestedWordClick?: (word: Word) => void
   play: boolean
-  selectedWords: Word[]
+  selectedWords?: Word[]
   title: string
   words?: Word[]
 }
@@ -88,7 +88,7 @@ const Game: FC<GameProps> = ({
         <AnswerPalette onClick={onAnswerWordClick} template={answerTemplate} words={answerWords} />
       )}
 
-      {words && onSuggestedWordClick !== undefined && (
+      {words && onSuggestedWordClick !== undefined && selectedWords !== undefined && (
         <LettersPalette onClick={onSuggestedWordClick} selected={selectedWords} words={words} />
       )}
     </Box>

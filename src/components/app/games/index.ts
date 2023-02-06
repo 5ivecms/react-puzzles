@@ -1,3 +1,5 @@
 export { default as CharadeGame } from './CharadeGame/CharadeGame'
+export { default as PictureGame } from './PictureGame/PictureGame'
 export { default as RebusGame } from './RebusGame/RebusGame'
 export { default as RiddleGame } from './RiddleGame/RiddleGame'
+export { default as TelepathGame } from './TelepathGame/TelepathGame'

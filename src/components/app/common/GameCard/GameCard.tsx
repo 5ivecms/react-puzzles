@@ -15,7 +15,7 @@ interface GameCardProps<T> {
 
 const GameCard = <T extends GameBase = GameBase>({ game, gameProcess, toGame }: GameCardProps<T>): ReactElement => {
   return (
-    <Grid xs={2} item>
+    <Grid xs={3} item>
       <Card>
         <CardContent sx={styles.cardContent}>
           {gameProcess.status === 'completed' && <CheckCircle color="success" sx={styles.successIcon} />}
