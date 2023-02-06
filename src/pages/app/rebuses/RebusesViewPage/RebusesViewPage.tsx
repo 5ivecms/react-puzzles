@@ -5,7 +5,7 @@ import { useParams } from 'react-router-dom'
 
 import { GameReward } from '../../../../components/app/common/Game'
 import { RebusGame } from '../../../../components/app/games'
-import { setCompleted } from '../../../../core/store/games/slice'
+import { openNextGame, setCompleted } from '../../../../core/store/games/slice'
 import { useAppDispatch } from '../../../../core/store/store'
 import type { GameStatus } from '../../../../core/types/game'
 import type { Rebus } from '../../../../core/types/models/rebus'
@@ -30,6 +30,7 @@ const RebusesViewPage: FC = () => {
       setGameStatus('completed')
       setExecutionTime(time)
       dispatch(setCompleted({ id: rebus.id, reward: 50, time, type: 'rebus' }))
+      dispatch(openNextGame({ id: rebus.id, type: 'rebus' }))
     },
     [dispatch, rebus.id]
   )

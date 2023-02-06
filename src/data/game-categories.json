@@ -1,7 +1,7 @@
 [
-  { "title": "Ребусы", "url": "/game/rebus", "image": "/images/game-categories/rebus.png" },
-  { "title": "Воображалка", "url": "/game/picture", "image": "/images/game-categories/picture.png" },
-  { "title": "Шарады", "url": "/game/charade", "image": "/images/game-categories/charade.png" },
-  { "title": "Загадки", "url": "/game/riddle", "image": "/images/game-categories/riddle.png" },
-  { "title": "Телепат", "url": "/game/telepath", "image": "/images/game-categories/telepat.png" }
+  { "title": "Ребусы", "slug": "rebus", "url": "/game/rebus", "image": "/images/game-categories/rebus.png" },
+  { "title": "Воображалка", "slug": "picture", "url": "/game/picture", "image": "/images/game-categories/picture.png" },
+  { "title": "Шарады", "slug": "charade", "url": "/game/charade", "image": "/images/game-categories/charade.png" },
+  { "title": "Загадки", "slug": "riddle", "url": "/game/riddle", "image": "/images/game-categories/riddle.png" },
+  { "title": "Телепат", "slug": "telepath", "url": "/game/telepath", "image": "/images/game-categories/telepat.png" }
 ]

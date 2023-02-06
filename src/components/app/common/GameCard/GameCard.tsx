@@ -36,7 +36,7 @@ const GameCard = <T extends GameBase = GameBase>({ game, gameProcess, toGame }: 
         </CardContent>
 
         <CardActions sx={styles.cardActions}>
-          <Button onClick={toGame} size="medium" variant="contained">
+          <Button disabled={gameProcess.locked} onClick={toGame} size="medium" variant="contained">
             {buttonTextMap[gameProcess.status]}
           </Button>
         </CardActions>

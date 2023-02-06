@@ -14,17 +14,16 @@ export const selectPictures = (state: RootState): Record<number, GameProcess> =>
 
 export const selectTelepaths = (state: RootState): Record<number, GameProcess> => state.games['telepath']
 
-export const selectGameScores = (state: RootState): any => {
+export const selectGameScores = (state: RootState): Record<string, number> => {
   const gameTypes = Object.keys(state.games) as GameType[]
 
-  const scores = gameTypes.reduce((acc: Record<any, any>, item) => {
-    const gameScores = Object.keys(state.games[item]).reduce((scoresValue, gameId) => {
-      console.log(state.games[item][Number(gameId)].reward)
-      return 0
-    }, 0)
-    console.log(acc)
-    return acc
+  const scores = gameTypes.reduce((acc: Record<string, number>, item) => {
+    const gameScores = Object.keys(state.games[item]).reduce(
+      (scoresValue, gameId) => scoresValue + state.games[item][Number(gameId)].reward,
+      0
+    )
+    return { ...acc, [item]: gameScores }
   }, {})
 
-  console.log(gameTypes)
+  return scores
 }

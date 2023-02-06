@@ -10,6 +10,7 @@ export type GameStatus = 'completed' | 'fail' | 'process'
 
 export interface GameProcess {
   id: number
+  locked: boolean
   reward: number
   status: GameProcessStatus
   time: number
@@ -17,6 +18,7 @@ export interface GameProcess {
 
 export type GameCategory = {
   image: string
+  slug: string
   title: string
   url: string
 }
