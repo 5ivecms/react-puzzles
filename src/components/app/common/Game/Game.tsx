@@ -20,6 +20,7 @@ interface GameProps {
   answerWords?: (Word | undefined)[]
   completed: boolean
   hints?: Hint[]
+  leftControl?: ReactElement | ReactNode
   onAnswerWordClick?: (_: Word, index: number) => void
   onComplete: (time: number) => void
   onRefresh?: () => void
@@ -36,6 +37,7 @@ const Game: FC<GameProps> = ({
   answerWords,
   completed,
   hints,
+  leftControl,
   onAnswerWordClick,
   onComplete,
   onRefresh,
@@ -73,6 +75,7 @@ const Game: FC<GameProps> = ({
       <GameHeader title={title} />
 
       <Box sx={controls}>
+        {leftControl !== undefined && leftControl}
         {onRefresh !== undefined && (
           <IconButton onClick={onRefresh}>
             <Refresh sx={refreshIcon} />
