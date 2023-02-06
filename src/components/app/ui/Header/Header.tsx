@@ -14,7 +14,7 @@ const Header: FC = () => {
 
   return (
     <AppBar position="static">
-      <Container maxWidth="xl">
+      <Container maxWidth="md">
         <Toolbar sx={toolbar} disableGutters>
           <Extension sx={logoIcon} />
           <Typography component={Link} sx={logoText} to={baseBrowseRoutes.index()} variant="h6" noWrap>
