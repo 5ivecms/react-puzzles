@@ -5,6 +5,7 @@ import { useParams } from 'react-router-dom'
 
 import { GameReward } from '../../../../components/app/common/Game'
 import { RebusGame } from '../../../../components/app/games'
+import { appRoutes } from '../../../../core/config/routes.config'
 import { openNextGame, setCompleted } from '../../../../core/store/games/slice'
 import { useAppDispatch } from '../../../../core/store/store'
 import type { GameStatus } from '../../../../core/types/game'
@@ -42,7 +43,9 @@ const RebusesViewPage: FC = () => {
   return (
     <MainLayout>
       {gameStatus === 'process' && <RebusGame onComplete={onComplete} onFail={onFail} rebus={rebus} />}
-      {gameStatus === 'completed' && <GameReward time={executionTime} title={`Задание №${rebus.id}`} />}
+      {gameStatus === 'completed' && (
+        <GameReward nextUrl={appRoutes.rebuses.index()} time={executionTime} title={`Задание №${rebus.id}`} />
+      )}
       {gameStatus === 'fail' && <>Обосрались</>}
     </MainLayout>
   )

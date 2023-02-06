@@ -1,6 +1,9 @@
 import type { FC } from 'react'
 import { useCallback, useEffect, useMemo, useState } from 'react'
 
+import { hintPrices } from '../../../../core/config/hint-prices.config'
+import { minusDiamonds } from '../../../../core/store/diamonds/slice'
+import { useAppDispatch } from '../../../../core/store/store'
 import type { Word } from '../../../../core/types/game'
 import type { Charade } from '../../../../core/types/models'
 import { generateLettersPalette, getRandomWordForAnswer } from '../../../../core/utils/letters'
@@ -14,6 +17,7 @@ interface CharadeGameProps {
 }
 
 const CharadeGame: FC<CharadeGameProps> = ({ charade, onComplete, onFail }) => {
+  const dispatch = useAppDispatch()
   const answer = charade.answerWords.join('')
   const answerTemplate = charade.answerWords.reduce((acc: (number | string)[], item, index) => {
     if (charade.answerWords.length - 1 === index) {
@@ -41,15 +45,23 @@ const CharadeGame: FC<CharadeGameProps> = ({ charade, onComplete, onFail }) => {
   const hints: Hint[] = useMemo(
     () => [
       {
-        onClick: openRandomLetter,
+        onClick: () => {
+          openRandomLetter()
+          dispatch(minusDiamonds({ count: hintPrices.OPEN_WORD }))
+        },
+        price: 10,
         text: 'Открыть 1 букву',
       },
       {
-        onClick: () => setCompleted(true),
+        onClick: () => {
+          setCompleted(true)
+          dispatch(minusDiamonds({ count: hintPrices.GAME_COMPLETE }))
+        },
+        price: 50,
         text: 'Досрочно пройти задание',
       },
     ],
-    [setCompleted, openRandomLetter]
+    [setCompleted, openRandomLetter, dispatch]
   )
 
   const handleRefresh = (): void => {

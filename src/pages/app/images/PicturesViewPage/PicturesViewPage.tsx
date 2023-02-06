@@ -4,7 +4,8 @@ import { useParams } from 'react-router-dom'
 
 import { GameReward } from '../../../../components/app/common/Game'
 import { PictureGame } from '../../../../components/app/games'
-import { setCompleted } from '../../../../core/store/games/slice'
+import { appRoutes } from '../../../../core/config/routes.config'
+import { openNextGame, setCompleted } from '../../../../core/store/games/slice'
 import { useAppDispatch } from '../../../../core/store/store'
 import type { GameStatus } from '../../../../core/types/game'
 import type { Picture } from '../../../../core/types/models'
@@ -29,6 +30,7 @@ const PicturesViewPage: FC = () => {
       setGameStatus('completed')
       setExecutionTime(time)
       dispatch(setCompleted({ id: picture.id, reward: 50, time, type: 'picture' }))
+      dispatch(openNextGame({ id: picture.id, type: 'picture' }))
     },
     [dispatch, picture.id]
   )
@@ -39,9 +41,10 @@ const PicturesViewPage: FC = () => {
 
   return (
     <MainLayout>
-      {' '}
       {gameStatus === 'process' && <PictureGame onComplete={onComplete} onFail={onFail} picture={picture} />}
-      {gameStatus === 'completed' && <GameReward time={executionTime} title={`Задание №${picture.id}`} />}
+      {gameStatus === 'completed' && (
+        <GameReward nextUrl={appRoutes.pictures.index()} time={executionTime} title={`Задание №${picture.id}`} />
+      )}
       {gameStatus === 'fail' && <>Обосрались</>}
     </MainLayout>
   )

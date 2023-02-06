@@ -21,7 +21,7 @@ const GameHeader: FC<GameHeaderProps> = ({ title }) => {
       <IconButton color="info" onClick={goBack} size="medium" sx={backIconSx}>
         <ArrowBackIosNewOutlined />
       </IconButton>
-      <Typography sx={titleSx} variant="h3">
+      <Typography sx={titleSx} variant="h4">
         {title}
       </Typography>
     </Box>

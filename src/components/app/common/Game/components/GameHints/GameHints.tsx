@@ -1,6 +1,17 @@
 import { TipsAndUpdates } from '@mui/icons-material'
-import type { SxProps } from '@mui/material'
-import { Backdrop, Box } from '@mui/material'
+import {
+  Box,
+  Button,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogTitle,
+  Divider,
+  List,
+  ListItem,
+  ListItemButton,
+  ListItemText,
+} from '@mui/material'
 import type { FC } from 'react'
 import { useState } from 'react'
 
@@ -13,25 +24,8 @@ interface GameHintsProps {
 
 const GameHints: FC<GameHintsProps> = ({ hints }) => {
   const [open, setOpen] = useState<boolean>(false)
-
-  let hintBoxStyle: SxProps = {
-    backgroundColor: '#fff',
-    left: -9999,
-    position: 'absolute',
-    top: -9999,
-    visibility: 'hidden',
-  }
-  if (open) {
-    hintBoxStyle = {
-      ...hintBoxStyle,
-      left: 0,
-      top: 0,
-      visibility: 'visible',
-    }
-  }
-
   return (
-    <div>
+    <>
       <Box sx={{ position: 'relative', zIndex: (theme) => theme.zIndex.drawer + 2 }}>
         <TipsAndUpdates
           onClick={() => setOpen(true)}
@@ -44,22 +38,36 @@ const GameHints: FC<GameHintsProps> = ({ hints }) => {
             zIndex: open ? 2 : 1,
           }}
         />
-        <Box sx={hintBoxStyle}>
-          <Box>
+      </Box>
+
+      <Dialog onClose={() => setOpen(false)} open={open} fullWidth>
+        <DialogTitle>Подсказки</DialogTitle>
+        <DialogContent>
+          <List>
             {hints.map(({ text, onClick }) => (
-              <Box key={text} onClick={onClick} sx={{ cursor: 'pointer', p: 3 }}>
-                {text}
+              <Box key={text}>
+                <ListItem sx={{ p: 0 }}>
+                  <ListItemButton
+                    onClick={() => {
+                      onClick()
+                      setOpen(false)
+                    }}
+                  >
+                    <ListItemText primary={text} />
+                  </ListItemButton>
+                </ListItem>
+                <Divider component="li" />
               </Box>
             ))}
-          </Box>
-        </Box>
-      </Box>
-      <Backdrop
-        onClick={() => setOpen(false)}
-        open={open}
-        sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
-      />
-    </div>
+          </List>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={() => setOpen(false)} variant="contained" autoFocus>
+            Понятно
+          </Button>
+        </DialogActions>
+      </Dialog>
+    </>
   )
 }
 

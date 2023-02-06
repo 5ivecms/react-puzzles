@@ -9,7 +9,7 @@ import LettersPalette from '../LettersPalette/LettersPalette'
 import GameHeader from './components/GameHeader/GameHeader'
 import GameHints from './components/GameHints/GameHints'
 import { useTimer } from './hooks'
-import { controls, refreshIcon, timerSx } from './style.sx'
+import { styles } from './style.sx'
 import type { Hint } from './types'
 import { formatTime } from './utils'
 
@@ -73,31 +73,36 @@ const Game: FC<GameProps> = ({
   }, [completed, timer, onComplete])
 
   return (
-    <Box>
+    <Box sx={styles.body}>
       <GameHeader title={title} />
 
-      <Box sx={controls}>
-        {leftControl !== undefined && leftControl}
-        {onRefresh !== undefined && (
-          <IconButton onClick={onRefresh}>
-            <Refresh sx={refreshIcon} />
-          </IconButton>
+      <Box sx={styles.content}>
+        <Box sx={styles.controls}>
+          {leftControl !== undefined && leftControl}
+          {onRefresh !== undefined && (
+            <IconButton onClick={onRefresh}>
+              <Refresh sx={styles.refreshIcon} />
+            </IconButton>
+          )}
+          <Typography sx={styles.timer}>{formatTime(timer)}</Typography>
+          {hints && <GameHints hints={hints} />}
+        </Box>
+
+        <Box sx={styles.questionContainer}>{Question}</Box>
+
+        {answerWords && onAnswerWordClick !== undefined && (
+          <Box sx={styles.answerPaletteContainer}>
+            <AnswerPalette onClick={onAnswerWordClick} template={answerTemplate} words={answerWords} />
+          </Box>
         )}
-        <Typography sx={timerSx}>{formatTime(timer)}</Typography>
-        {hints && <GameHints hints={hints} />}
       </Box>
 
-      {Question}
-
-      {answerWords && onAnswerWordClick !== undefined && (
-        <AnswerPalette onClick={onAnswerWordClick} template={answerTemplate} words={answerWords} />
-      )}
-
-      {words && onSuggestedWordClick !== undefined && selectedWords !== undefined && (
-        <LettersPalette onClick={onSuggestedWordClick} selected={selectedWords} words={words} />
-      )}
-
-      {footer !== undefined && footer}
+      <Box sx={styles.bottom}>
+        {words && onSuggestedWordClick !== undefined && selectedWords !== undefined && (
+          <LettersPalette onClick={onSuggestedWordClick} selected={selectedWords} words={words} />
+        )}
+        {footer !== undefined && footer}
+      </Box>
     </Box>
   )
 }

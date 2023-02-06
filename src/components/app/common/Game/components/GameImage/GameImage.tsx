@@ -5,7 +5,7 @@ interface GameImageProps {
 }
 
 const GameImage: FC<GameImageProps> = ({ src }) => {
-  return <img alt="" src={src} style={{ width: 300 }} />
+  return <img alt="" src={src} style={{ width: 400 }} />
 }
 
 export default GameImage

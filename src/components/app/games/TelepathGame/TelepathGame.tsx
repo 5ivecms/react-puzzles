@@ -14,6 +14,8 @@ import {
 import type { ChangeEvent, FC } from 'react'
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 
+import { hintPrices } from '../../../../core/config/hint-prices.config'
+import { minusDiamonds } from '../../../../core/store/diamonds/slice'
 import { useAppDispatch } from '../../../../core/store/store'
 import type { Telepath } from '../../../../core/types/models/telepaths'
 import Game from '../../common/Game/Game'
@@ -47,11 +49,15 @@ const TelepathGame: FC<TelepathGameProps> = ({ telepath, onComplete, onFail }) =
   const hints: Hint[] = useMemo(
     () => [
       {
-        onClick: () => setCompleted(true),
+        onClick: () => {
+          setCompleted(true)
+          dispatch(minusDiamonds({ count: hintPrices.GAME_COMPLETE }))
+        },
+        price: hintPrices.GAME_COMPLETE,
         text: 'Досрочно пройти задание',
       },
     ],
-    [setCompleted]
+    [setCompleted, dispatch]
   )
 
   const onInputText = (e: ChangeEvent<HTMLInputElement>): void => {
@@ -81,13 +87,7 @@ const TelepathGame: FC<TelepathGameProps> = ({ telepath, onComplete, onFail }) =
     setShowFinalAnswerDialog(false)
   }
 
-  const isCorrectAnswer = useCallback(
-    () => (): boolean => {
-      console.log(answer, telepath.answer)
-      return answer === telepath.answer
-    },
-    [answer, telepath.answer]
-  )
+  const isCorrectAnswer = useCallback((): boolean => answer === telepath.answer, [answer, telepath.answer])
 
   useEffect(() => {
     if (answer.length === 0) {

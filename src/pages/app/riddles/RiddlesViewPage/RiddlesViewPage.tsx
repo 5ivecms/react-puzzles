@@ -4,7 +4,8 @@ import { useParams } from 'react-router-dom'
 
 import { GameReward } from '../../../../components/app/common/Game'
 import { RiddleGame } from '../../../../components/app/games'
-import { setCompleted } from '../../../../core/store/games/slice'
+import { appRoutes } from '../../../../core/config/routes.config'
+import { openNextGame, setCompleted } from '../../../../core/store/games/slice'
 import { useAppDispatch } from '../../../../core/store/store'
 import type { GameStatus } from '../../../../core/types/game'
 import type { Riddle } from '../../../../core/types/models'
@@ -29,6 +30,7 @@ const RiddlesViewPage: FC = () => {
       setGameStatus('completed')
       setExecutionTime(time)
       dispatch(setCompleted({ id: riddle.id, reward: 50, time, type: 'riddle' }))
+      dispatch(openNextGame({ id: riddle.id, type: 'riddle' }))
     },
     [dispatch, riddle.id]
   )
@@ -40,7 +42,9 @@ const RiddlesViewPage: FC = () => {
   return (
     <MainLayout>
       {gameStatus === 'process' && <RiddleGame onComplete={onComplete} onFail={onFail} riddle={riddle} />}
-      {gameStatus === 'completed' && <GameReward time={executionTime} title={`Задание №${riddle.id}`} />}
+      {gameStatus === 'completed' && (
+        <GameReward nextUrl={appRoutes.riddles.index()} time={executionTime} title={`Задание №${riddle.id}`} />
+      )}
       {gameStatus === 'fail' && <>Обосрались</>}
     </MainLayout>
   )

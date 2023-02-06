@@ -9,8 +9,8 @@ export const container: SxProps = {
 }
 
 export const titleSx: SxProps = {
-  mb: 4,
-  mt: 4,
+  mb: 3,
+  mt: 3,
 }
 
 export const backIconSx: SxProps = {

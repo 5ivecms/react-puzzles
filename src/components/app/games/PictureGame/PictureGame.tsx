@@ -1,6 +1,7 @@
 import type { FC } from 'react'
 import { useCallback, useEffect, useMemo, useState } from 'react'
 
+import { hintPrices } from '../../../../core/config/hint-prices.config'
 import { minusDiamonds } from '../../../../core/store/diamonds/slice'
 import { useAppDispatch } from '../../../../core/store/store'
 import type { Word } from '../../../../core/types/game'
@@ -42,16 +43,25 @@ const PictureGame: FC<PictureGameProps> = ({ onComplete, onFail, picture }) => {
       {
         onClick: () => {
           openRandomLetter()
-          dispatch(minusDiamonds({ count: 10 }))
+          dispatch(minusDiamonds({ count: hintPrices.OPEN_WORD }))
         },
+        price: hintPrices.OPEN_WORD,
         text: 'Открыть 1 букву',
       },
       {
-        onClick: () => setCompleted(true),
+        onClick: () => {
+          setCompleted(true)
+          dispatch(minusDiamonds({ count: hintPrices.GAME_COMPLETE }))
+        },
+        price: hintPrices.GAME_COMPLETE,
         text: 'Досрочно пройти задание',
       },
       {
-        onClick: () => setDisplayedImages(3),
+        onClick: () => {
+          setDisplayedImages(3)
+          dispatch(minusDiamonds({ count: hintPrices.OPEN_PICTURE }))
+        },
+        price: hintPrices.OPEN_PICTURE,
         text: 'Показать картинку №3',
       },
     ],

@@ -4,7 +4,8 @@ import { useParams } from 'react-router-dom'
 
 import { GameReward } from '../../../../components/app/common/Game'
 import { CharadeGame } from '../../../../components/app/games'
-import { setCompleted } from '../../../../core/store/games/slice'
+import { appRoutes } from '../../../../core/config/routes.config'
+import { openNextGame, setCompleted } from '../../../../core/store/games/slice'
 import { useAppDispatch } from '../../../../core/store/store'
 import type { GameStatus } from '../../../../core/types/game'
 import type { Charade } from '../../../../core/types/models'
@@ -29,6 +30,7 @@ const CharadesViewPage: FC = () => {
       setGameStatus('completed')
       setExecutionTime(time)
       dispatch(setCompleted({ id: charade.id, reward: 50, time, type: 'charade' }))
+      dispatch(openNextGame({ id: charade.id, type: 'charade' }))
     },
     [dispatch, charade.id]
   )
@@ -40,7 +42,9 @@ const CharadesViewPage: FC = () => {
   return (
     <MainLayout>
       {gameStatus === 'process' && <CharadeGame charade={charade} onComplete={onComplete} onFail={onFail} />}
-      {gameStatus === 'completed' && <GameReward time={executionTime} title={`Задание №${charade.id}`} />}
+      {gameStatus === 'completed' && (
+        <GameReward nextUrl={appRoutes.charades.index()} time={executionTime} title={`Задание №${charade.id}`} />
+      )}
       {gameStatus === 'fail' && <>Обосрались</>}
     </MainLayout>
   )

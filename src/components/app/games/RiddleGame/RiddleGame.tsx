@@ -1,6 +1,9 @@
 import type { FC } from 'react'
 import { useCallback, useEffect, useMemo, useState } from 'react'
 
+import { hintPrices } from '../../../../core/config/hint-prices.config'
+import { minusDiamonds } from '../../../../core/store/diamonds/slice'
+import { useAppDispatch } from '../../../../core/store/store'
 import type { Word } from '../../../../core/types/game'
 import type { Riddle } from '../../../../core/types/models'
 import { generateLettersPalette, getRandomWordForAnswer } from '../../../../core/utils/letters'
@@ -14,6 +17,7 @@ interface RiddleGameProps {
 }
 
 const RiddleGame: FC<RiddleGameProps> = ({ onComplete, onFail, riddle }) => {
+  const dispatch = useAppDispatch()
   const [play, setPlay] = useState<boolean>(true)
   const [completed, setCompleted] = useState<boolean>(false)
   const [answerWords, setAnswerWords] = useState<(Word | undefined)[]>(
@@ -35,15 +39,20 @@ const RiddleGame: FC<RiddleGameProps> = ({ onComplete, onFail, riddle }) => {
   const hints: Hint[] = useMemo(
     () => [
       {
-        onClick: openRandomLetter,
+        onClick: () => {
+          openRandomLetter()
+          dispatch(minusDiamonds({ count: hintPrices.OPEN_WORD }))
+        },
+        price: hintPrices.OPEN_WORD,
         text: 'Открыть 1 букву',
       },
       {
         onClick: () => setCompleted(true),
+        price: hintPrices.GAME_COMPLETE,
         text: 'Досрочно пройти задание',
       },
     ],
-    [setCompleted, openRandomLetter]
+    [setCompleted, openRandomLetter, dispatch]
   )
 
   const handleRefresh = (): void => {
