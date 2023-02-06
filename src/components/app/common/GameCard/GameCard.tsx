@@ -1,4 +1,4 @@
-import { CheckCircle, Star } from '@mui/icons-material'
+import { CheckCircle, Lock, Star } from '@mui/icons-material'
 import { Box, Button, Card, CardActions, CardContent, Grid, Typography } from '@mui/material'
 import type { ReactElement } from 'react'
 
@@ -18,7 +18,8 @@ const GameCard = <T extends GameBase = GameBase>({ game, gameProcess, toGame }: 
     <Grid xs={3} item>
       <Card>
         <CardContent sx={styles.cardContent}>
-          {gameProcess.status === 'completed' && <CheckCircle color="success" sx={styles.successIcon} />}
+          {gameProcess.status === 'completed' && <CheckCircle color="success" sx={styles.statusIcon} />}
+          {gameProcess.status === 'new' && gameProcess.locked && <Lock color="disabled" sx={styles.statusIcon} />}
           <Box sx={styles.cardHeader}>
             <Box sx={styles.rebusNum}>{game.id}</Box>
           </Box>

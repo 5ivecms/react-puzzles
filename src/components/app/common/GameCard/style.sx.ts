@@ -31,7 +31,7 @@ export const styles: Record<string, SxProps> = {
     color: YELLOW,
     marginRight: 0.5,
   },
-  successIcon: {
+  statusIcon: {
     left: 10,
     position: 'absolute',
     top: 10,
