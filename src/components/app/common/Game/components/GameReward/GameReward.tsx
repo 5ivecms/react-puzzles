@@ -1,6 +1,7 @@
-import { Typography } from '@mui/material'
+import { Button, Typography } from '@mui/material'
 import type { FC } from 'react'
 
+import { formatTime } from '../../utils'
 import { titleSx } from './style.sx'
 
 interface GameRewardProps {
@@ -15,7 +16,8 @@ const GameReward: FC<GameRewardProps> = ({ title, time }) => {
         {title}
       </Typography>
       <Typography variant="h6">Выполнено за</Typography>
-      <Typography variant="h5">{time}</Typography>
+      <Typography variant="h5">{formatTime(time)}</Typography>
+      <Button variant="contained">Далее</Button>
     </>
   )
 }

@@ -60,8 +60,7 @@ const gamesSlice = createSlice({
       const { id, type } = action.payload
       const nextGameId = id + 1
       const nextGame = { ...state[type][nextGameId] }
-
-      if (!nextGame) {
+      if (!nextGame || Object.keys(nextGame).length === 0) {
         return
       }
 

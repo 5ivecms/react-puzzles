@@ -1,8 +1,4 @@
 [
   { "id": 1, "answer": "дисплей", "letters": "д,и,с,п,л,е,й", "image": "/images/rebuses/1.jpg" },
-  { "id": 2, "answer": "тополь", "letters": "т,о,п,о,л,ь", "image": "/images/rebuses/2.jpg" },
-  { "id": 3, "answer": "булка", "letters": "б,у,л,к,а", "image": "/dsa.png" },
-  { "id": 4, "answer": "булка", "letters": "б,у,л,к,а", "image": "/dsa.png" },
-  { "id": 5, "answer": "булка", "letters": "б,у,л,к,а", "image": "/dsa.png" },
-  { "id": 6, "answer": "булка", "letters": "б,у,л,к,а", "image": "/dsa.png" }
+  { "id": 2, "answer": "тополь", "letters": "т,о,п,о,л,ь", "image": "/images/rebuses/2.jpg" }
 ]
