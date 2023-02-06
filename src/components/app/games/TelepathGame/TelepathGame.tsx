@@ -12,7 +12,7 @@ import {
   Typography,
 } from '@mui/material'
 import type { ChangeEvent, FC } from 'react'
-import { useMemo, useRef, useState } from 'react'
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 
 import { useAppDispatch } from '../../../../core/store/store'
 import type { Telepath } from '../../../../core/types/models/telepaths'
@@ -32,6 +32,9 @@ interface TelepathGameProps {
 
 const TelepathGame: FC<TelepathGameProps> = ({ telepath, onComplete, onFail }) => {
   const dispatch = useAppDispatch()
+  const [answer, setAnswer] = useState<string>('')
+  const [answerText, setAnswerText] = useState<string>('')
+  const [showFinalAnswerDialog, setShowFinalAnswerDialog] = useState<boolean>(false)
   const [text, setText] = useState<string>('')
   const [log, setLog] = useState<LogText[]>([])
   const [showLogDialog, setShowLogDialog] = useState<boolean>(false)
@@ -73,6 +76,34 @@ const TelepathGame: FC<TelepathGameProps> = ({ telepath, onComplete, onFail }) =
     setShowAnswerDialog(true)
   }
 
+  const handleAnswer = (): void => {
+    setAnswer(answerText)
+    setShowFinalAnswerDialog(false)
+  }
+
+  const isCorrectAnswer = useCallback(
+    () => (): boolean => {
+      console.log(answer, telepath.answer)
+      return answer === telepath.answer
+    },
+    [answer, telepath.answer]
+  )
+
+  useEffect(() => {
+    if (answer.length === 0) {
+      return
+    }
+
+    setPlay(false)
+
+    if (isCorrectAnswer()) {
+      setCompleted(true)
+      return
+    }
+
+    onFail()
+  }, [answer.length, isCorrectAnswer, onFail])
+
   return (
     <>
       <Game
@@ -88,6 +119,11 @@ const TelepathGame: FC<TelepathGameProps> = ({ telepath, onComplete, onFail }) =
           </Box>
         }
         completed={completed}
+        footer={
+          <Button onClick={() => setShowFinalAnswerDialog(true)} size="large" variant="contained">
+            Дать ответ
+          </Button>
+        }
         hints={hints}
         leftControl={
           <IconButton onClick={() => setShowLogDialog(true)}>
@@ -98,6 +134,23 @@ const TelepathGame: FC<TelepathGameProps> = ({ telepath, onComplete, onFail }) =
         play={play}
         title={`Задание №${telepath.id}`}
       />
+
+      <Dialog onClose={() => setShowFinalAnswerDialog(false)} open={showFinalAnswerDialog}>
+        <DialogTitle>Результат</DialogTitle>
+        <DialogContent>
+          <TextField
+            label="Ответ"
+            onChange={(e) => setAnswerText(e.target.value)}
+            placeholder="Ответ"
+            sx={{ mb: 2, mt: 2 }}
+          />
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleAnswer} variant="contained" autoFocus>
+            Дать ответ
+          </Button>
+        </DialogActions>
+      </Dialog>
 
       <Dialog onClose={() => setShowAnswerDialog(false)} open={showAnswerDialog}>
         <DialogTitle>Результат</DialogTitle>

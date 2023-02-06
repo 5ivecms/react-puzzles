@@ -19,6 +19,7 @@ interface GameProps {
   answerTemplate?: (number | string)[]
   answerWords?: (Word | undefined)[]
   completed: boolean
+  footer?: ReactElement | ReactNode
   hints?: Hint[]
   leftControl?: ReactElement | ReactNode
   onAnswerWordClick?: (_: Word, index: number) => void
@@ -36,6 +37,7 @@ const Game: FC<GameProps> = ({
   answerTemplate,
   answerWords,
   completed,
+  footer,
   hints,
   leftControl,
   onAnswerWordClick,
@@ -94,6 +96,8 @@ const Game: FC<GameProps> = ({
       {words && onSuggestedWordClick !== undefined && selectedWords !== undefined && (
         <LettersPalette onClick={onSuggestedWordClick} selected={selectedWords} words={words} />
       )}
+
+      {footer !== undefined && footer}
     </Box>
   )
 }
