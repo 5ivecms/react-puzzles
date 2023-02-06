@@ -1,4 +1,14 @@
 [
   { "id": 1, "answer": "дисплей", "letters": "д,и,с,п,л,е,й", "image": "/images/rebuses/1.jpg" },
-  { "id": 2, "answer": "тополь", "letters": "т,о,п,о,л,ь", "image": "/images/rebuses/2.jpg" }
+  { "id": 2, "answer": "тополь", "letters": "т,о,п,о,л,ь", "image": "/images/rebuses/2.jpg" },
+  { "id": 3, "answer": "клей", "letters": "к,л,е,й", "image": "/images/rebuses/3.jpg" },
+  { "id": 4, "answer": "рыбка", "letters": "р,ы,б,к,а", "image": "/images/rebuses/4.jpg" },
+  { "id": 5, "answer": "мука", "letters": "м,у,к,а", "image": "/images/rebuses/5.jpeg" },
+  { "id": 6, "answer": "дочка", "letters": "д,о,ч,к,а", "image": "/images/rebuses/6.jpg" },
+  { "id": 7, "answer": "дружина", "letters": "д,р,у,ж,и,н,а", "image": "/images/rebuses/7.jpg" },
+  { "id": 8, "answer": "число", "letters": "ч,и,с,л,о", "image": "/images/rebuses/8.jpg" },
+  { "id": 9, "answer": "хомяк", "letters": "х,о,м,я,к", "image": "/images/rebuses/9.jpg" },
+  { "id": 10, "answer": "ученик", "letters": "у,ч,е,н,и,к", "image": "/images/rebuses/10.jpg" },
+  { "id": 11, "answer": "лиса", "letters": "л,и,с,а", "image": "/images/rebuses/11.jpg" },
+  { "id": 12, "answer": "наука", "letters": "н,а,у,к,а", "image": "/images/rebuses/12.jpg" }
 ]
