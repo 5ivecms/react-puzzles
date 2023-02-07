@@ -1,4 +1,4 @@
-import { TipsAndUpdates } from '@mui/icons-material'
+import { Diamond, TipsAndUpdates } from '@mui/icons-material'
 import {
   Box,
   Button,
@@ -12,10 +12,12 @@ import {
   ListItem,
   ListItemButton,
   ListItemText,
+  Typography,
 } from '@mui/material'
 import type { FC } from 'react'
 import { useState } from 'react'
 
+import { DIAMOND_COLOR } from '../../../../../../core/config/theme.config'
 import type { Hint } from '../../types'
 import { hintIcon, listItem } from './style.sx'
 
@@ -35,7 +37,7 @@ const GameHints: FC<GameHintsProps> = ({ hints }) => {
         <DialogTitle>Подсказки</DialogTitle>
         <DialogContent>
           <List>
-            {hints.map(({ text, onClick }) => (
+            {hints.map(({ text, price, onClick }) => (
               <Box key={text}>
                 <ListItem sx={listItem}>
                   <ListItemButton
@@ -45,6 +47,10 @@ const GameHints: FC<GameHintsProps> = ({ hints }) => {
                     }}
                   >
                     <ListItemText primary={text} />
+                    <Box sx={{ alignContent: 'center', display: 'flex' }}>
+                      <Diamond sx={{ color: DIAMOND_COLOR, height: 24, mr: 0.5, width: 24 }} />
+                      <Typography fontWeight="bold">{price}</Typography>
+                    </Box>
                   </ListItemButton>
                 </ListItem>
                 <Divider component="li" />

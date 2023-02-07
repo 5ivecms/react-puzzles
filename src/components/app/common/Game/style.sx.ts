@@ -10,7 +10,7 @@ export const styles: Record<string, SxProps> = {
   body: {
     display: 'flex',
     flexDirection: 'column',
-    minHeight: 'calc(100vh - 151px)',
+    minHeight: 'calc(100vh - 168px)',
     [theme.breakpoints.down('sm')]: {
       minHeight: 'calc(100vh - 130px)',
     },

@@ -5,6 +5,7 @@ import { theme } from '../../../../../../core/config/theme.config'
 export const container: SxProps = {
   alignItems: 'center',
   display: 'flex',
+  justifyContent: 'space-between',
   my: 3,
   overflow: 'hidden',
   textOverflow: 'ellipsis',

@@ -1,6 +1,7 @@
 import { createTheme } from '@mui/material'
 
 export const YELLOW = '#f9c300'
+export const DIAMOND_COLOR = '#00aef1'
 
 export const XSS_BREAKPOINT = 480
 export const XSS_MEDIA_QUERY = `@media (max-width: ${XSS_BREAKPOINT}px)`

@@ -14,6 +14,7 @@ const IndexPage: FC = () => {
   return (
     <MainLayout>
       <PageHeader left={<PageTitle title="Выберите чемпионат" />} />
+
       <Grid spacing={2} container>
         {categories.map((category) => (
           <GameCategory key={category.url} category={category} />
