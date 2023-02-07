@@ -9,6 +9,7 @@ export const topHeader: SxProps = {
   alignItems: 'center',
   backgroundColor: '#fff',
   display: 'flex',
+  justifyContent: 'space-between',
   pb: 2,
   pl: 3,
   pr: 3,

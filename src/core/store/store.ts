@@ -6,16 +6,18 @@ import { useDispatch } from 'react-redux'
 import { FLUSH, PAUSE, PERSIST, persistReducer, persistStore, PURGE, REGISTER, REHYDRATE } from 'redux-persist'
 import storage from 'redux-persist/lib/storage'
 
+import auth from './auth/slice'
 import diamonds from './diamonds/slice'
 import games from './games/slice'
 
 const persistConfig = {
+  blacklist: ['auth'],
   key: 'root',
   storage,
   version: 1,
 }
 
-const rootReducer = combineReducers({ diamonds, games })
+const rootReducer = combineReducers({ auth, diamonds, games })
 
 const persistedReducer = persistReducer(persistConfig, rootReducer)
 

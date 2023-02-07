@@ -1,6 +1,7 @@
 export const baseBrowseRoutes = {
   diamonds: (): string => '/diamonds',
   index: (): string => `/`,
+  login: (): string => '/login',
   notFound: (): string => `*`,
   promo: (): string => '/promo',
   titles: (): string => '/titles',

@@ -1,21 +1,23 @@
 import { Extension } from '@mui/icons-material'
 import { AppBar, Box, Button, Container, Toolbar, Typography } from '@mui/material'
 import type { FC } from 'react'
-import { useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
 
-import { selectDiamondsCount } from '../../../../core/store/diamonds/selectors'
+import { baseBrowseRoutes } from '../../../../core/config/routes.config'
 import { headerMenu } from './header.data'
 import { headerTitle, linkMenu, linksContainer, logoIcon, toolbar, topHeader } from './style.sx'
 
 const Header: FC = () => {
-  const diamonds = useSelector(selectDiamondsCount)
-
   return (
     <Container maxWidth="md" disableGutters>
       <Box sx={topHeader}>
-        <Extension sx={logoIcon} />
-        <Typography sx={headerTitle}>Загадки и пазлы</Typography>
+        <Box sx={{ alignContent: 'center', display: 'flex', justifyContent: 'center' }}>
+          <Extension sx={logoIcon} />
+          <Typography sx={headerTitle}>Загадки и пазлы</Typography>
+        </Box>
+        <Button component={Link} to={baseBrowseRoutes.login()} variant="contained">
+          Получить доступ
+        </Button>
       </Box>
       <AppBar position="static" sx={{ pl: 3, pr: 3 }}>
         <Toolbar sx={toolbar} disableGutters>
