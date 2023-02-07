@@ -21,7 +21,7 @@ const GameCategory: FC<GameCategoryProps> = ({ category: { title, url, image, sl
       <Card>
         <CardContent sx={cardContent}>
           <Box sx={categoryImageBox}>
-            <img alt={title} src={image} />
+            <img alt={title} src={image} style={{ maxHeight: '100%', maxWidth: '100%' }} />
           </Box>
           <Typography fontWeight="bold" sx={categoryTitle} textAlign="center" variant="h5">
             {title}
