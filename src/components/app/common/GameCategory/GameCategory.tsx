@@ -17,7 +17,7 @@ const GameCategory: FC<GameCategoryProps> = ({ category: { title, url, image, sl
   const scores = Object.keys(gameScores).includes(slug) ? gameScores[slug] : 0
 
   return (
-    <Grid xs={3} item>
+    <Grid md={3} sm={4} xs={6} item>
       <Card>
         <CardContent>
           <Box sx={categoryImageBox}>

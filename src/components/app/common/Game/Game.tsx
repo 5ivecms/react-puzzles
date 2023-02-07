@@ -1,5 +1,5 @@
 import { Refresh } from '@mui/icons-material'
-import { Box, IconButton, Typography } from '@mui/material'
+import { Box, Container, IconButton, Typography } from '@mui/material'
 import type { FC, ReactElement, ReactNode } from 'react'
 import { useEffect, useRef } from 'react'
 
@@ -97,12 +97,12 @@ const Game: FC<GameProps> = ({
         )}
       </Box>
 
-      <Box sx={styles.bottom}>
+      <Container maxWidth="md" sx={styles.bottom} disableGutters>
         {words && onSuggestedWordClick !== undefined && selectedWords !== undefined && (
           <LettersPalette onClick={onSuggestedWordClick} selected={selectedWords} words={words} />
         )}
         {footer !== undefined && footer}
-      </Box>
+      </Container>
     </Box>
   )
 }

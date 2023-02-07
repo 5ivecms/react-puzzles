@@ -19,7 +19,7 @@ const PageHeader: FC<PageHeaderProps> = ({ left, right, showBackButton = false }
   }
 
   return (
-    <Box sx={{ ...pageHeaderContainer }}>
+    <Box sx={pageHeaderContainer}>
       <Box sx={pageHeaderLeftSx}>
         {showBackButton && (
           <IconButton aria-label="back" color="info" onClick={goBack} size="medium" sx={backIconSx}>

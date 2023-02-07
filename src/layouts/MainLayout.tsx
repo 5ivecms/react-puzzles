@@ -9,10 +9,10 @@ interface MainLayoutProps {
 
 const MainLayout: FC<MainLayoutProps> = ({ children }) => {
   return (
-    <Box>
+    <Container maxWidth="md" sx={{ background: '#fff', minHeight: '100vh', overflow: 'hidden' }} disableGutters>
       <Header />
-      <Container maxWidth="md">{children}</Container>
-    </Box>
+      <Box sx={{ pb: 2, pl: 2, pr: 2 }}>{children}</Box>
+    </Container>
   )
 }
 

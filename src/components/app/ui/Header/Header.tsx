@@ -1,25 +1,24 @@
-import { Diamond, Extension } from '@mui/icons-material'
+import { Extension } from '@mui/icons-material'
 import { AppBar, Box, Button, Container, Toolbar, Typography } from '@mui/material'
 import type { FC } from 'react'
 import { useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
 
-import { baseBrowseRoutes } from '../../../../core/config/routes.config'
 import { selectDiamondsCount } from '../../../../core/store/diamonds/selectors'
 import { headerMenu } from './header.data'
-import { linkMenu, linksContainer, logoIcon, logoText, toolbar } from './style.sx'
+import { headerTitle, linkMenu, linksContainer, logoIcon, toolbar, topHeader } from './style.sx'
 
 const Header: FC = () => {
   const diamonds = useSelector(selectDiamondsCount)
 
   return (
-    <AppBar position="static">
-      <Container maxWidth="md">
+    <Container maxWidth="md" disableGutters>
+      <Box sx={topHeader}>
+        <Extension sx={logoIcon} />
+        <Typography sx={headerTitle}>Загадки и пазлы</Typography>
+      </Box>
+      <AppBar position="static" sx={{ pl: 3, pr: 3 }}>
         <Toolbar sx={toolbar} disableGutters>
-          <Extension sx={logoIcon} />
-          <Typography component={Link} sx={logoText} to={baseBrowseRoutes.index()} variant="h6" noWrap>
-            Загадки и пазлы
-          </Typography>
           <Box sx={linksContainer}>
             {headerMenu.map((item) => (
               <Button key={item.url} component={Link} sx={linkMenu} to={item.url}>
@@ -27,15 +26,15 @@ const Header: FC = () => {
               </Button>
             ))}
           </Box>
-          <Box sx={{ display: 'flex', flexDirection: 'row' }}>
+          {/* <Box sx={{ display: 'flex', flexDirection: 'row' }}>
             <Box sx={{ alignItems: 'center', display: 'flex', flexDirection: 'row', mr: 2 }}>
               <Diamond sx={{ height: 26, mr: 0.5, width: 26 }} />
               <Typography fontWeight="bold">{diamonds}</Typography>
             </Box>
-          </Box>
+          </Box> */}
         </Toolbar>
-      </Container>
-    </AppBar>
+      </AppBar>
+    </Container>
   )
 }
 
