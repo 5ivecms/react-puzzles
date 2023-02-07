@@ -2,6 +2,7 @@ import { Box, Container } from '@mui/material'
 import type { FC, ReactNode } from 'react'
 
 import { Header } from '../components/app/ui'
+import { container, content } from './style.sx'
 
 interface MainLayoutProps {
   children: ReactNode
@@ -9,9 +10,9 @@ interface MainLayoutProps {
 
 const MainLayout: FC<MainLayoutProps> = ({ children }) => {
   return (
-    <Container maxWidth="md" sx={{ background: '#fff', minHeight: '100vh', overflow: 'hidden' }} disableGutters>
+    <Container maxWidth="md" sx={container} disableGutters>
       <Header />
-      <Box sx={{ pb: 2, pl: 2, pr: 2 }}>{children}</Box>
+      <Box sx={content}>{children}</Box>
     </Container>
   )
 }

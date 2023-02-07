@@ -1,6 +1,6 @@
 import type { SxProps } from '@mui/material'
 
-import { YELLOW } from '../../../../core/config/theme.config'
+import { theme, YELLOW } from '../../../../core/config/theme.config'
 
 export const styles: Record<string, SxProps> = {
   cardActions: { display: 'flex', justifyContent: 'center' },
@@ -21,6 +21,11 @@ export const styles: Record<string, SxProps> = {
     height: 80,
     justifyContent: 'center',
     width: 80,
+    [theme.breakpoints.down('sm')]: {
+      fontSize: 28,
+      height: 70,
+      width: 70,
+    },
   },
   reward: {
     alignItems: 'center',
@@ -29,7 +34,22 @@ export const styles: Record<string, SxProps> = {
   },
   rewardIcon: {
     color: YELLOW,
-    marginRight: 0.5,
+    height: 30,
+    mr: 1,
+    [theme.breakpoints.down('sm')]: {
+      height: 24,
+      mr: 0.5,
+      width: 24,
+    },
+    width: 30,
+  },
+  scores: {
+    '@media (max-width: 700px)': {
+      fontSize: '1.125rem',
+    },
+    [theme.breakpoints.down('sm')]: {
+      fontSize: '1rem',
+    },
   },
   statusIcon: {
     left: 10,

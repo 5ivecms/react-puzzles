@@ -1,17 +1,25 @@
 import type { SxProps } from '@mui/material'
 
+import { theme } from '../../../../core/config/theme.config'
+
 const BUTTON_WIDTH = 64
 const BUTTON_HEIGHT = 64
 
 export const buttonsContainer: SxProps = {
   display: 'flex',
   flexDirection: 'row',
-  marginLeft: -0.5,
-  marginRight: -0.5,
+  justifyContent: 'center',
+  width: '100%',
 }
 
 export const buttonItem: SxProps = {
+  flex: 1,
+  maxWidth: 72,
   p: 0.5,
+  [theme.breakpoints.down('sm')]: {
+    maxWidth: 54,
+    p: 0.25,
+  },
 }
 
 export const emptyLetter: SxProps = {
@@ -19,7 +27,12 @@ export const emptyLetter: SxProps = {
   border: '1px solid #e9e9e9',
   borderRadius: '4px',
   height: BUTTON_HEIGHT,
-  width: BUTTON_WIDTH,
+  margin: '0 auto',
+  maxWidth: BUTTON_WIDTH,
+  [theme.breakpoints.down('sm')]: {
+    height: 50,
+    maxWidth: 50,
+  },
 }
 
 export const letterButton: SxProps = {
@@ -39,4 +52,7 @@ export const wordsSeparator: SxProps = {
   justifyContent: 'center',
   marginLeft: 1,
   marginRight: 1,
+  [theme.breakpoints.down('sm')]: {
+    fontSize: 32,
+  },
 }

@@ -7,6 +7,7 @@ import {
   DialogContent,
   DialogTitle,
   Divider,
+  IconButton,
   List,
   ListItem,
   ListItemButton,
@@ -15,8 +16,8 @@ import {
 import type { FC } from 'react'
 import { useState } from 'react'
 
-import { YELLOW } from '../../../../../../core/config/theme.config'
 import type { Hint } from '../../types'
+import { hintIcon, listItem } from './style.sx'
 
 interface GameHintsProps {
   hints: Hint[]
@@ -26,19 +27,9 @@ const GameHints: FC<GameHintsProps> = ({ hints }) => {
   const [open, setOpen] = useState<boolean>(false)
   return (
     <>
-      <Box sx={{ position: 'relative', zIndex: (theme) => theme.zIndex.drawer + 2 }}>
-        <TipsAndUpdates
-          onClick={() => setOpen(true)}
-          sx={{
-            color: YELLOW,
-            cursor: 'pointer',
-            height: 50,
-            position: 'relative',
-            width: 50,
-            zIndex: open ? 2 : 1,
-          }}
-        />
-      </Box>
+      <IconButton color="info" onClick={() => setOpen(true)}>
+        <TipsAndUpdates sx={hintIcon} />
+      </IconButton>
 
       <Dialog onClose={() => setOpen(false)} open={open} fullWidth>
         <DialogTitle>Подсказки</DialogTitle>
@@ -46,7 +37,7 @@ const GameHints: FC<GameHintsProps> = ({ hints }) => {
           <List>
             {hints.map(({ text, onClick }) => (
               <Box key={text}>
-                <ListItem sx={{ p: 0 }}>
+                <ListItem sx={listItem}>
                   <ListItemButton
                     onClick={() => {
                       onClick()

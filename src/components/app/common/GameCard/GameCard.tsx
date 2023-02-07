@@ -20,6 +20,7 @@ const GameCard = <T extends GameBase = GameBase>({ game, gameProcess, toGame }: 
         <CardContent sx={styles.cardContent}>
           {gameProcess.status === 'completed' && <CheckCircle color="success" sx={styles.statusIcon} />}
           {gameProcess.status === 'new' && gameProcess.locked && <Lock color="disabled" sx={styles.statusIcon} />}
+
           <Box sx={styles.cardHeader}>
             <Box sx={styles.rebusNum}>{game.id}</Box>
           </Box>
@@ -30,7 +31,7 @@ const GameCard = <T extends GameBase = GameBase>({ game, gameProcess, toGame }: 
 
           <Box sx={styles.reward}>
             <Star sx={styles.rewardIcon} />
-            <Typography component="div" textAlign="center" variant="h5">
+            <Typography sx={styles.scores} textAlign="center" variant="h6">
               {gameProcess.reward} очков
             </Typography>
           </Box>

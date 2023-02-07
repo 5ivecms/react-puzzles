@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom'
 
 import { selectGameScores } from '../../../../core/store/games/selectors'
 import type { GameCategory as GameCategoryType } from '../../../../core/types/game'
-import { buttonsBox, categoryImageBox, categoryTitle, ratingBox, starIcon } from './style.sx'
+import { buttonsBox, cardContent, categoryImageBox, categoryTitle, ratingBox, ratingText, starIcon } from './style.sx'
 
 interface GameCategoryProps {
   category: GameCategoryType
@@ -19,7 +19,7 @@ const GameCategory: FC<GameCategoryProps> = ({ category: { title, url, image, sl
   return (
     <Grid md={3} sm={4} xs={6} item>
       <Card>
-        <CardContent>
+        <CardContent sx={cardContent}>
           <Box sx={categoryImageBox}>
             <img alt={title} src={image} />
           </Box>
@@ -28,7 +28,9 @@ const GameCategory: FC<GameCategoryProps> = ({ category: { title, url, image, sl
           </Typography>
           <Box sx={ratingBox}>
             <Star sx={starIcon} />
-            <Typography variant="h6">{scores} очков</Typography>
+            <Typography sx={ratingText} variant="h6">
+              {scores} очков
+            </Typography>
           </Box>
         </CardContent>
         <CardActions sx={buttonsBox}>

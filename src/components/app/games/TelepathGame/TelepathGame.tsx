@@ -20,6 +20,7 @@ import { useAppDispatch } from '../../../../core/store/store'
 import type { Telepath } from '../../../../core/types/models/telepaths'
 import Game from '../../common/Game/Game'
 import type { Hint } from '../../common/Game/types'
+import { container, formControl, questionText, wordForm } from './style.sx'
 
 type LogText = {
   hasSymbol: boolean
@@ -108,14 +109,16 @@ const TelepathGame: FC<TelepathGameProps> = ({ telepath, onComplete, onFail }) =
     <>
       <Game
         Question={
-          <Box>
-            <Typography>Введите слово чтобы узнать, есть ли в нем загаданная буква:</Typography>
-            <Box>
-              <TextField label="Слово" onChange={onInputText} placeholder="Слово" value={text} />
+          <Box sx={container}>
+            <Typography sx={questionText}>Введите слово чтобы узнать, есть ли в нем загаданная буква:</Typography>
+            <Box sx={wordForm}>
+              <Box sx={formControl}>
+                <TextField label="Слово" onChange={onInputText} placeholder="Слово" value={text} fullWidth />
+              </Box>
+              <Button onClick={handleCheck} size="large" variant="contained">
+                Проверить
+              </Button>
             </Box>
-            <Button onClick={handleCheck} size="large" variant="contained">
-              Проверить
-            </Button>
           </Box>
         }
         completed={completed}

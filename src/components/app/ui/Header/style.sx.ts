@@ -1,6 +1,6 @@
 import type { SxProps } from '@mui/material'
 
-import { XSS_MEDIA_QUERY } from '../../../../core/config/theme.config'
+import { theme, XSS_MEDIA_QUERY } from '../../../../core/config/theme.config'
 
 export const topHeader: SxProps = {
   [XSS_MEDIA_QUERY]: {
@@ -19,6 +19,7 @@ export const headerTitle: SxProps = {
   [XSS_MEDIA_QUERY]: {
     fontSize: 28,
   },
+
   fontSize: 32,
 }
 
@@ -59,4 +60,7 @@ export const linkMenu: SxProps = {
   color: 'white',
   display: 'block',
   my: 2,
+  [theme.breakpoints.down('sm')]: {
+    my: 1,
+  },
 }

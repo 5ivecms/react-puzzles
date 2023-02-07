@@ -53,14 +53,12 @@ const AnswerPalette: FC<AnswerPaletteProps> = ({ words, template, onClick }) => 
             {t}
           </Box>
         ) : (
-          <Box key={`answer-word-${index1}`} sx={{ display: 'flex', flexDirection: 'row' }}>
-            {words.slice(countWords, t + countWords).map((word) => {
-              countWords += 1
-              return (
-                <WordElement key={`answer-word-${countWords}`} index={countWords - 1} onClick={onClick} word={word} />
-              )
-            })}
-          </Box>
+          words.slice(countWords, t + countWords).map((word) => {
+            countWords += 1
+            return (
+              <WordElement key={`answer-word-${countWords}`} index={countWords - 1} onClick={onClick} word={word} />
+            )
+          })
         )
       })}
     </Box>
